@@ -17,6 +17,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.0",
+    "globals": "^17.7.0",
     "jest": "^30.4.2"
   },
   "allowScripts": {
