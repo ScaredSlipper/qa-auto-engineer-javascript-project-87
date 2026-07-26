@@ -1,0 +1,28 @@
+{
+  "name": "difference_finder",
+  "version": "1.0.0",
+  "description": "educational project for Hexlet",
+  "homepage": "https://github.com/ScaredSlipper/qa-auto-engineer-javascript-project-87#readme",
+  "bugs": {
+    "url": "https://github.com/ScaredSlipper/qa-auto-engineer-javascript-project-87/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ScaredSlipper/qa-auto-engineer-javascript-project-87.git"
+  },
+  "author": "ScaredSlipper",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
+  },
+  "allowScripts": {
+    "jest@30.4.2": true
+  },
+  "dependencies": {
+    "commander": "^15.0.0"
+  }
+}
