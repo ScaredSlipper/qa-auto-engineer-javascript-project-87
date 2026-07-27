@@ -9,6 +9,10 @@ program
     .helpOption('-h, --help', 'output usage information')
     .option('-f, --format <type>', 'output format')
     .arguments('<filepath1> <filepath2>')
-    .action(genDiff)
 
 program.parse()
+
+const format = program.opts().format
+const [filePath1, filePath2] = program.args
+
+genDiff(filePath1, filePath2, format)

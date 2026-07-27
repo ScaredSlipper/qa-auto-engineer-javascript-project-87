@@ -1,5 +1,6 @@
-const genDiff = (file1, file2) => {
-    return file1 + file2
+const genDiff = (filePath1, filePath2, format = '') => {
+    console.log(filePath1 + filePath2 + format)
+    return filePath1 + filePath2 + format
 }
 
 export default genDiff
