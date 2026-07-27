@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import genDiff from '../src/index.js'
 import { program } from 'commander'
 
 program
@@ -11,9 +12,3 @@ program
     .action(genDiff)
 
 program.parse()
-
-const genDiff = (file1, file2) => {
-    return null
-}
-
-export default genDiff
