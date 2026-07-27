@@ -7,18 +7,26 @@ const expected = {
   follow: false
 }
 
-test('item parses absolute path', () => {
+test('file parses absolute path', () => {
     expect(parse('/home/scared_slipper/project/__fixtures__/file1.json')).toBe(expected)
 })
 
-test('item parses relative path', () => {
+test('file parses relative path', () => {
     expect(parse('../__fixtures__/file1.json')).toBe(expected)
 })
 
-test('item parses yaml', () => {
+test('file parses yaml', () => {
     expect(parse('../__fixtures__/file1.yml')).toBe(expected)
 })
 
-test('item parses json', () => {
+test('file parses json', () => {
     expect(parse('../__fixtures__/file1.json')).toBe(expected)
+})
+
+test('file not found', () => {
+    expect(() => parse('../__fixtures__/file6.json')).toThrow()
+})
+
+test('unsupported file format', () => {
+    expect(() => parse('../__fixtures__/file1.txt')).toThrow()
 })

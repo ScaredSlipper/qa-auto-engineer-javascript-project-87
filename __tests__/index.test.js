@@ -32,11 +32,11 @@ Property 'verbose' was added with value: true`
 })
 */
 test('file does not exist', () => {
-    expect(genDiff('./__fixtures__/file1.json', 'abc')).toThrow()
+    expect(() => genDiff('./__fixtures__/file1.json', 'abc')).toThrow()
 })
 
 test('unsupported file format', () => {
-    expect(genDiff('../__fixtures__/file1.json', '../__fixtures__/file2.txt')).toThrow()
+    expect(() => genDiff('../__fixtures__/file1.json', '../__fixtures__/file2.txt')).toThrow()
 })
 
 test('unsupported output format', () => {
