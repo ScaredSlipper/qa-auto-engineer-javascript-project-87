@@ -1,0 +1,15 @@
+name: build
+
+on: push
+
+jobs:
+  build:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v6
+    
+    - name: run linter
+      run: make lint
+    
+    - name: run jest
+      run: make test-c
