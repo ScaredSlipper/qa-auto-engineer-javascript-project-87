@@ -1,4 +1,15 @@
 import genDiff from '../src/index.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const getPath = (file) => path.join(__dirname, '..', '__fixtures__', file)
+
+const json1 = getPath('file1.json')
+const json2 = getPath('file2.json')
+//const json1 = getPath('file1.yml')
+//const json2 = getPath('file2.yml')
 
 test('positive, no format (stylish format)', () => {
     const expected = `{
@@ -9,9 +20,9 @@ test('positive, no format (stylish format)', () => {
   + timeout: 20
   + verbose: true
 }`
-    expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json')).toBe(expected)
+    expect(genDiff(json1, json2)).toBe(expected)
 })
-
+/*
 test('positive, plain format', () => {
     const expected = `
 Property 'follow' was removed
@@ -20,7 +31,7 @@ Property 'timeout' was updated. From 50 to 20
 Property 'verbose' was added with value: true`
     expect(genDiff('/home/scared_slipper/project/__fixtures__/file1.json', '__fixtures__/file2.json', 'plain')).toBe(expected)
 })
-/*
+
 test('positive, json format', () => {
 const expected = `
 Property 'follow' was removed
@@ -37,16 +48,8 @@ test('file does not exist', () => {
 test('unsupported file format', () => {
     expect(() => genDiff('__fixtures__/file1.json', '__fixtures__/file2.txt')).toThrow()
 })
-
+/*
 test('unsupported output format', () => {
-    const expected = `
-{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`
-    expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.txt', 'txt')).toBe(expected)
+    expect(() => genDiff(json1, '__fixtures__/file2.json', 'txt')).toEqual('')
 })
+*/

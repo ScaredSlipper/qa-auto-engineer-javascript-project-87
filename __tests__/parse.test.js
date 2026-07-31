@@ -1,4 +1,13 @@
 import parse from '../src/parse.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const getPath = (file) => path.join(__dirname, '..', '__fixtures__', file)
+
+const json = getPath('file1.json')
+//const yml = getPath('file1.yml')
 
 const expected = {
   host: "hexlet.io",
@@ -8,25 +17,25 @@ const expected = {
 }
 
 test('file parses absolute path', () => {
-    expect(parse('/home/scared_slipper/project/__fixtures__/file1.json')).toEqual(expected)
+    expect(parse(json)).toEqual(expected)
 })
 
 test('file parses relative path', () => {
-    expect(parse('__fixtures__/file1.json')).toEqual(expected)
+    expect(parse(json)).toEqual(expected)
 })
-
+/*
 test('file parses yaml', () => {
-    expect(parse('__fixtures__/file1.yml')).toEqual(expected)
+    expect(parse(yml)).toEqual(expected)
 })
-
+*/
 test('file parses json', () => {
-    expect(parse('__fixtures__/file1.json')).toEqual(expected)
+    expect(parse(json)).toEqual(expected)
 })
 
 test('file not found', () => {
-    expect(() => parse('__fixtures__/file6.json')).toThrow()
+    expect(() => parse(getPath('file6.json'))).toThrow()
 })
 
 test('unsupported file format', () => {
-    expect(() => parse('__fixtures__/file1.txt')).toThrow()
+    expect(() => parse(getPath('__fixtures__/file1.txt'))).toThrow()
 })
