@@ -7,7 +7,7 @@ const genDiff = (filePath1, filePath2, /*format = ''*/) => {
   const file1Keys = Object.keys(file1)
   const file2Keys = Object.keys(file2)
   const diff = file1Keys
-    .filter(key1 => !file2Keys.some(key2 => key1 === key2))
+    .filter(key1 => !file2Keys.includes(key2 => key1 === key2))
     .concat(file2Keys)
     .sort((a,b) => a.localeCompare(b))
     .reduce((acc, key) => {
