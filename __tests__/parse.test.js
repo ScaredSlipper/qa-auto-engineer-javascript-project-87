@@ -42,5 +42,5 @@ test('file not found', () => {
 })
 
 test('unsupported file format', () => {
-    expect(() => parse(getPath('__fixtures__/file1.txt'))).toThrow()
+    expect(parse(getPath('file1.txt'))).toBe('unsupported file format')
 })
