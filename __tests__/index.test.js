@@ -33,7 +33,7 @@ Property 'follow' was removed
 Property 'proxy' was removed
 Property 'timeout' was updated. From 50 to 20
 Property 'verbose' was added with value: true`
-    expect(genDiff('/home/scared_slipper/project/__fixtures__/file1.json', '__fixtures__/file2.json', 'plain')).toBe(expected)
+    expect(genDiff(json1, '__fixtures__/file2.json', 'plain')).toBe(expected)
 })
 
 test('positive, json format', () => {
