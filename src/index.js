@@ -1,9 +1,7 @@
 import parse from './parse.js'
+import Output from './format.js'
 
-const genDiff = (filePath1, filePath2, /*format = ''*/) => {
-  const file1 = parse(filePath1)
-  const file2 = parse(filePath2)
-
+const getDiff = (file1, file2) => {
   const file1Keys = Object.keys(file1)
   const file2Keys = Object.keys(file2)
   const diff = file1Keys
@@ -24,28 +22,25 @@ const genDiff = (filePath1, filePath2, /*format = ''*/) => {
         return acc
       }
     }, [])
+  return diff
+}
+
+const genDiff = (filePath1, filePath2, format = 'stylish') => {
+  const file1 = parse(filePath1)
+  const file2 = parse(filePath2)
+
+  const diff = getDiff(file1, file2)
   
-  const result = diff.reduce((acc, difference) => {
-    if (Object.hasOwn(difference, 'file1Value') && Object.hasOwn(difference, 'file2Value')) {
-      if (difference.file1Value === difference.file2Value) {
-        acc.push(`    ${difference.key}: ${difference.file1Value}`)
-        return acc
-      }
-      acc.push(`  - ${difference.key}: ${difference.file1Value}`, `  + ${difference.key}: ${difference.file2Value}`)
-      return acc
-    }
-    if (Object.hasOwn(difference, 'file1Value')) {
-      acc.push(`  - ${difference.key}: ${difference.file1Value}`)
-      return acc
-    }
-    if (Object.hasOwn(difference, 'file2Value')) {
-      acc.push(`  + ${difference.key}: ${difference.file2Value}`)
-      return acc
-    }
-  }, [])
-  .join('\n')
-console.log(`{\n${result}\n}`)
-  return `{\n${result}\n}`
+  const output = new Output(diff)
+
+  try {
+    return output[format]()
+  }
+
+  catch {
+    return 'unsupported output format'
+  }
+
 }
 
 export default genDiff
