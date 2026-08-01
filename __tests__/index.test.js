@@ -26,7 +26,7 @@ test('positive, no format (stylish format)', () => {
     expect(genDiff(yaml, json2)).toBe(expected)
     expect(genDiff(yml1, json2)).toBe(expected)
 })
-/*
+
 test('positive, plain format', () => {
     const expected = `
 Property 'follow' was removed
@@ -35,7 +35,7 @@ Property 'timeout' was updated. From 50 to 20
 Property 'verbose' was added with value: true`
     expect(genDiff('/home/scared_slipper/project/__fixtures__/file1.json', '__fixtures__/file2.json', 'plain')).toBe(expected)
 })
-
+/*
 test('positive, json format', () => {
 const expected = `
 Property 'follow' was removed
