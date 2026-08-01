@@ -7,7 +7,8 @@ const __dirname = path.dirname(__filename)
 const getPath = (file) => path.join(__dirname, '..', '__fixtures__', file)
 
 const json = getPath('file1.json')
-//const yml = getPath('file1.yml')
+const yml = getPath('file1.yml')
+const yaml = getPath('file1.yaml')
 
 const expected = {
   host: "hexlet.io",
@@ -21,13 +22,17 @@ test('file parses absolute path', () => {
 })
 
 test('file parses relative path', () => {
-    expect(parse(json)).toEqual(expected)
+    expect(parse('./__fixtures__/file1.json')).toEqual(expected)
 })
-/*
-test('file parses yaml', () => {
+
+test('file parses yml', () => {
     expect(parse(yml)).toEqual(expected)
 })
-*/
+
+test('file parses yaml', () => {
+    expect(parse(yaml)).toEqual(expected)
+})
+
 test('file parses json', () => {
     expect(parse(json)).toEqual(expected)
 })

@@ -8,8 +8,9 @@ const getPath = (file) => path.join(__dirname, '..', '__fixtures__', file)
 
 const json1 = getPath('file1.json')
 const json2 = getPath('file2.json')
-//const json1 = getPath('file1.yml')
-//const json2 = getPath('file2.yml')
+const yaml = getPath('file1.yaml')
+const yml1 = getPath('file1.yml')
+const yml2 = getPath('file2.yml')
 
 test('positive, no format (stylish format)', () => {
     const expected = `{
@@ -21,6 +22,9 @@ test('positive, no format (stylish format)', () => {
   + verbose: true
 }`
     expect(genDiff(json1, json2)).toBe(expected)
+    expect(genDiff(yml1, yml2)).toBe(expected)
+    expect(genDiff(yaml, json2)).toBe(expected)
+    expect(genDiff(yml1, json2)).toBe(expected)
 })
 /*
 test('positive, plain format', () => {
@@ -48,8 +52,7 @@ test('file does not exist', () => {
 test('unsupported file format', () => {
     expect(() => genDiff('__fixtures__/file1.json', '__fixtures__/file2.txt')).toThrow()
 })
-/*
+
 test('unsupported output format', () => {
-    expect(() => genDiff(json1, '__fixtures__/file2.json', 'txt')).toEqual('')
+    expect(genDiff(json1, '__fixtures__/file2.json', 'txt')).toBe('unsupported output format')
 })
-*/
