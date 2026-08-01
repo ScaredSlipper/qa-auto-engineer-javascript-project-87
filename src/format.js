@@ -44,7 +44,8 @@ function plain(diff) {
 }
 
 function json(diff) {
-  return 'should be json'
+  const result = JSON.stringify(diff)
+  return result
 }
 
 class Output {
