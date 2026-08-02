@@ -1,4 +1,4 @@
-import genDiff from '../src/index.js'
+import genDiff from '../src/gendiff.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
