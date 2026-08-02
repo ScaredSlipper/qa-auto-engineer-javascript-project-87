@@ -6,11 +6,17 @@ const parseJson = (readFile) => JSON.parse(readFile)
 
 const parseYml = (readFile) => load(readFile)
 
+const isExtentionSupported = (extention) => {
+    const supportedExtentions = ['.json', '.yml', '.yaml']
+    return supportedExtentions.includes(extention)
+}
+
 const parse = (filePath) => {
     try {
     const readFile = fs.readFileSync(filePath, 'utf-8')
     const extension = extname(filePath).toLowerCase()
-    if (extension === '.json' || extension === '.yml' || extension === '.yaml') {
+    const extensionIsSupported = isExtentionSupported(extension)
+    if (extensionIsSupported) {
         const parsedFile = extension === '.json' ? parseJson(readFile) : parseYml(readFile)
         return parsedFile
     }
