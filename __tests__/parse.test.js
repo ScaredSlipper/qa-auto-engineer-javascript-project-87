@@ -17,7 +17,7 @@ const expected = {
   follow: false
 }
 
-test('file parses absolute path', () => {
+test('file parses absolute path, json', () => {
     expect(parse(json)).toEqual(expected)
 })
 
@@ -31,10 +31,6 @@ test('file parses yml', () => {
 
 test('file parses yaml', () => {
     expect(parse(yaml)).toEqual(expected)
-})
-
-test('file parses json', () => {
-    expect(parse(json)).toEqual(expected)
 })
 
 test('file not found', () => {

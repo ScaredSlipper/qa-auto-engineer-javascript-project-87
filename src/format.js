@@ -18,7 +18,7 @@ function stylish(diff) {
     }
   }, [])
   .join('\n')
-  return `{\n${result}\n}`
+  return `\n{\n${result}\n}`
 }
 
 function plain(diff) {
@@ -45,7 +45,7 @@ function plain(diff) {
 
 function json(diff) {
   const result = JSON.stringify(diff)
-  return result
+  return `\n${result}`
 }
 
 class Output {

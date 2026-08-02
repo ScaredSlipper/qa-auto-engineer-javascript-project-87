@@ -11,9 +11,11 @@ const json2 = getPath('file2.json')
 const yaml = getPath('file1.yaml')
 const yml1 = getPath('file1.yml')
 const yml2 = getPath('file2.yml')
+const txt = getPath('file1.txt')
 
 test('positive, no format (stylish format)', () => {
-    const expected = `{
+    const expected = `
+{
   - follow: false
     host: hexlet.io
   - proxy: 123.234.53.22
@@ -27,7 +29,7 @@ test('positive, no format (stylish format)', () => {
     expect(genDiff(yml1, json2)).toBe(expected)
 })
 
-test('positive, plain format', () => {
+test('positive, plain format, relative path', () => {
     const expected = `
 Property 'follow' was removed
 Property 'proxy' was removed
@@ -37,18 +39,19 @@ Property 'verbose' was added with value: true`
 })
 
 test('positive, json format', () => {
-    const expected = `[{"key":"follow","file1Value":false},{"key":"host","file1Value":"hexlet.io","file2Value":"hexlet.io"},{"key":"proxy","file1Value":"123.234.53.22"},{"key":"timeout","file1Value":50,"file2Value":20},{"key":"verbose","file2Value":true}]`
-    expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.yml', 'json')).toBe(expected)
+    const expected = `
+[{"key":"follow","file1Value":false},{"key":"host","file1Value":"hexlet.io","file2Value":"hexlet.io"},{"key":"proxy","file1Value":"123.234.53.22"},{"key":"timeout","file1Value":50,"file2Value":20},{"key":"verbose","file2Value":true}]`
+    expect(genDiff(json1, yml2, 'json')).toBe(expected)
 })
 
 test('file does not exist', () => {
-    expect(genDiff('./__fixtures__/file1.json', 'abc')).toBe('file not found or unable to read file')
+    expect(genDiff(json1, 'abc')).toBe('file not found or unable to read file')
 })
 
 test('unsupported file format', () => {
-    expect(genDiff('__fixtures__/file1.json', '__fixtures__/file1.txt')).toBe('unsupported file format')
+    expect(genDiff(json1, txt)).toBe('unsupported file format')
 })
 
 test('unsupported output format', () => {
-    expect(genDiff(json1, '__fixtures__/file2.json', 'txt')).toBe('unsupported output format')
+    expect(genDiff(json1, json2, 'txt')).toBe('unsupported output format')
 })
