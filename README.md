@@ -1,3 +1,33 @@
+## Info
+
+This project is a study project
+
+It is a utility that compares 2 files
+It accepts .json, .yaml, .yml files as inputs
+
+and outputs the difference in Stylish, Plain text and JSON formats (see 'Usage examples' below)
+
+
+## Requirements:
+
+**OS:** Ubuntu 24.04
+
+**Shell:** Bash version 5.2
+
+**Runtime:** node.js v24.15.0
+
+## Installation
+
+$ git clone git@github.com:ScaredSlipper/qa-auto-engineer-javascript-project-87
+
+$ cd qa-auto-engineer-javascript-project-87
+
+$ make install
+
+$ gendiff -h
+
+## Other
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/ScaredSlipper/qa-auto-engineer-javascript-project-87/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/ScaredSlipper/qa-auto-engineer-javascript-project-87/actions)
 
