@@ -22,7 +22,9 @@ test('positive, no format (stylish format)', () => {
   - timeout: 50
   + timeout: 20
   + verbose: true
-}`
+}
+`
+
     expect(genDiff(json1, json2)).toBe(expected)
     expect(genDiff(yml1, yml2)).toBe(expected)
     expect(genDiff(yaml, json2)).toBe(expected)
@@ -34,13 +36,17 @@ test('positive, plain format, relative path', () => {
 Property 'follow' was removed
 Property 'proxy' was removed
 Property 'timeout' was updated. From 50 to 20
-Property 'verbose' was added with value: true`
+Property 'verbose' was added with value: true
+`
+
     expect(genDiff(json1, '__fixtures__/file2.json', 'plain')).toBe(expected)
 })
 
 test('positive, json format', () => {
     const expected = `
-[{"key":"follow","file1Value":false},{"key":"host","file1Value":"hexlet.io","file2Value":"hexlet.io"},{"key":"proxy","file1Value":"123.234.53.22"},{"key":"timeout","file1Value":50,"file2Value":20},{"key":"verbose","file2Value":true}]`
+[{"key":"follow","file1Value":false},{"key":"host","file1Value":"hexlet.io","file2Value":"hexlet.io"},{"key":"proxy","file1Value":"123.234.53.22"},{"key":"timeout","file1Value":50,"file2Value":20},{"key":"verbose","file2Value":true}]
+`
+
     expect(genDiff(json1, yml2, 'json')).toBe(expected)
 })
 
