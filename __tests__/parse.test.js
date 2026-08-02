@@ -38,9 +38,9 @@ test('file parses json', () => {
 })
 
 test('file not found', () => {
-    expect(() => parse(getPath('file6.json'))).toThrow()
+    expect(() => parse(getPath('file6.json'))).toThrow(Error('file not found or unable to read file'))
 })
 
 test('unsupported file format', () => {
-    expect(parse(getPath('file1.txt'))).toBe('unsupported file format')
+    expect(() => parse(getPath('file1.txt'))).toThrow(Error('unsupported file format'))
 })

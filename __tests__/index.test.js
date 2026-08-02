@@ -42,11 +42,11 @@ test('positive, json format', () => {
 })
 
 test('file does not exist', () => {
-    expect(() => genDiff('./__fixtures__/file1.json', 'abc')).toThrow()
+    expect(genDiff('./__fixtures__/file1.json', 'abc')).toBe('file not found or unable to read file')
 })
 
 test('unsupported file format', () => {
-    expect(() => genDiff('__fixtures__/file1.json', '__fixtures__/file2.txt')).toThrow()
+    expect(genDiff('__fixtures__/file1.json', '__fixtures__/file1.txt')).toBe('unsupported file format')
 })
 
 test('unsupported output format', () => {

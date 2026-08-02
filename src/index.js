@@ -26,8 +26,9 @@ const getDiff = (file1, file2) => {
 }
 
 const genDiff = (filePath1, filePath2, format = 'stylish') => {
-  const file1 = parse(filePath1)
-  const file2 = parse(filePath2)
+  try {
+    const file1 = parse(filePath1)
+    const file2 = parse(filePath2)
 
   const diff = getDiff(file1, file2)
   
@@ -40,7 +41,10 @@ const genDiff = (filePath1, filePath2, format = 'stylish') => {
   catch {
     return 'unsupported output format'
   }
-
+  }
+  catch(error) {
+    return error.message
+  }
 }
 
 export default genDiff
