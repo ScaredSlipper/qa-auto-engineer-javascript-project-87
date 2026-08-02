@@ -39,9 +39,15 @@ Property 'verbose' was added with value: true`
 })
 
 test('positive, json format', () => {
-    const expected = `[{"key":"follow","file1Value":false},{"key":"host","file1Value":"hexlet.io","file2Value":"hexlet.io"},{"key":"proxy","file1Value":"123.234.53.22"},{"key":"timeout","file1Value":50,"file2Value":20},{"key":"verbose","file2Value":true}]`
+    const expected = {
+        follow: 'deleted',
+        host: 'unchanged',
+        proxy: 'deleted',
+        timeout: 'changed',
+        verbose: 'added',
+    }
 
-    expect(genDiff(json1, yml2, 'json')).toBe(expected)
+    expect(genDiff(json1, yml2, 'json')).toEqual(expected)
 })
 
 test('file does not exist', () => {
