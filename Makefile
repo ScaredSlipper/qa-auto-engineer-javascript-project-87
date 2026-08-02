@@ -1,6 +1,6 @@
 install:
 	npm ci
-	sudo npm link
+	npm link
 
 gendiff:
 	node ./bin/gendiff.js
