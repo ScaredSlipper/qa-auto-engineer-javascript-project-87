@@ -1,6 +1,6 @@
 function json(diff) {
   const result = JSON.stringify(diff)
-  return `\n${result}\n`
+  return `${result}`
 }
 
 export default json

@@ -17,7 +17,7 @@ function plain(diff) {
     }
   }, [])
   .join('\n')
-  return `\n${result}\n`
+  return `${result}`
 }
 
 export default plain

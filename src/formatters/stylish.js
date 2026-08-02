@@ -18,7 +18,7 @@ function stylish(diff) {
     }
   }, [])
   .join('\n')
-  return `\n{\n${result}\n}\n`
+  return `{\n${result}\n}`
 }
 
 export default stylish
