@@ -1,4 +1,4 @@
-import parse from '../src/parse.js'
+import parse from '../src/parsers.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 

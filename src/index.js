@@ -1,5 +1,5 @@
-import parse from './parse.js'
-import Output from './format.js'
+import parse from './parsers.js'
+import Output from './formatters/index.js'
 
 const getDiff = (file1, file2) => {
   const file1Keys = Object.keys(file1)
