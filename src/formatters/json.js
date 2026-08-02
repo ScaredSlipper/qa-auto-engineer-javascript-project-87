@@ -17,7 +17,7 @@ function json(diff) {
       return acc
     }
   }, {})
-  return result
+  return JSON.stringify(result, null, 2)
 }
 
 export default json
