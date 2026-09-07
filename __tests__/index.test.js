@@ -1,10 +1,11 @@
 import genDiff from '../src/gendiff.js'
+import fs from 'node:fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-const getPath = (file) => path.join(__dirname, '..', '__fixtures__', file)
+const getPath = file => path.join(__dirname, '..', '__fixtures__', file)
 
 const json1 = getPath('file1.json')
 const json2 = getPath('file2.json')
@@ -13,15 +14,12 @@ const yml1 = getPath('file1.yml')
 const yml2 = getPath('file2.yml')
 const txt = getPath('file1.txt')
 
+const expectedStylish = fs.readFileSync(getPath('stylish.expected'), 'utf-8')
+const expectedPlain = fs.readFileSync(getPath('plain.expected'), 'utf-8')
+const expectedJson = fs.readFileSync(getPath('json.expected'), 'utf-8')
+
 test('positive, no format (stylish format)', () => {
-  const expected = `{
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
-}`
+  const expected = expectedStylish
 
   expect(genDiff(json1, json2)).toBe(expected)
   expect(genDiff(yml1, yml2)).toBe(expected)
@@ -30,24 +28,15 @@ test('positive, no format (stylish format)', () => {
 })
 
 test('positive, plain format, relative path', () => {
-  const expected = `Property 'follow' was removed
-Property 'proxy' was removed
-Property 'timeout' was updated. From 50 to 20
-Property 'verbose' was added with value: true`
+  const expected = expectedPlain
 
   expect(genDiff(json1, '__fixtures__/file2.json', 'plain')).toBe(expected)
 })
 
 test('positive, json format', () => {
-  const expected = `{
-  "follow": "deleted",
-  "host": "unchanged",
-  "proxy": "deleted",
-  "timeout": "changed",
-  "verbose": "added"
-}`
+  const expected = expectedJson
 
-expect(genDiff(json1, yml2, 'json')).toEqual(expected)
+  expect(genDiff(json1, yml2, 'json')).toEqual(expected)
 })
 
 test('file does not exist', () => {
