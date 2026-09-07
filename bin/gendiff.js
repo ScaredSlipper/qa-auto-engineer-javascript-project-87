@@ -10,9 +10,14 @@ program
   .option('-f, --format <type>', 'output format')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2, options) => {
-    const format = Object.hasOwn(options, 'format') ? options.format :'stylish'
-    const diff = genDiff(filepath1, filepath2, format)
-    console.log(diff)
+    const format = Object.hasOwn(options, 'format') ? options.format : 'stylish'
+    try {
+      const diff = genDiff(filepath1, filepath2, format)
+      console.log(diff)
+    }
+    catch (error) {
+      console.log(error.message)
+    }
   })
 
 program.parse()
