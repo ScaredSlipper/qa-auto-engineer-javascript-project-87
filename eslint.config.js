@@ -1,13 +1,15 @@
-import js from "@eslint/js";
-import globals from "globals";
-import { defineConfig } from "eslint/config";
+import js from '@eslint/js'
+import globals from 'globals'
+import { defineConfig } from 'eslint/config'
 import pluginJest from 'eslint-plugin-jest'
+import stylistic from '@stylistic/eslint-plugin'
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
+  stylistic.configs.recommended,
+  { files: ['**/*.{js,mjs,cjs}'], plugins: { js }, extends: ['js/recommended'], languageOptions: { globals: globals.node } },
   {
     files: ['**/*.test.js'],
-    plugins: { jest: pluginJest },
+    plugins: { 'jest': pluginJest, '@stylistic': stylistic },
     languageOptions: {
       globals: pluginJest.environments.globals.globals,
     },
@@ -19,4 +21,4 @@ export default defineConfig([
       'jest/valid-expect': 'error',
     },
   },
-]);
+])
