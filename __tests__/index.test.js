@@ -40,13 +40,13 @@ test('positive, json format', () => {
 })
 
 test('file does not exist', () => {
-  expect(genDiff(json1, 'abc')).toBe('file not found or unable to read file')
+  expect(() => genDiff(json1, 'abc')).toThrow('file not found or unable to read file')
 })
 
 test('unsupported file format', () => {
-  expect(genDiff(json1, txt)).toBe('unsupported file format')
+  expect(() => genDiff(json1, txt)).toThrow('unsupported file format')
 })
 
 test('unsupported output format', () => {
-  expect(genDiff(json1, json2, 'txt')).toBe('unsupported output format')
+  expect(() => genDiff(json1, json2, 'txt')).toThrow('unsupported output format')
 })
