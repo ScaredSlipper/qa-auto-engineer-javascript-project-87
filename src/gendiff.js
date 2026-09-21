@@ -34,25 +34,14 @@ const genDiff = (filePath1, filePath2, format = 'stylish') => {
 
   const diff = getDiff(file1, file2)
 
-  try {
+  if (Object.hasOwn(formatters, format)) {
     const result = diff.reduce((acc, difference) => {
-      if (Object.hasOwn(formatters, format)) {
-        acc.push(formatters[format][difference.type](difference))
-        return acc
-      }
-      else {
-        throw new Error ('unsupported output format')
-      }
+      acc.push(formatters[format][difference.type](difference))
+      return acc
     }, [])
-    if (Object.hasOwn(formatters, format)) {
-      return formatters[format].format(result)
-    }
-    else {
-      throw new Error ('unsupported output format')
-    }
+    return formatters[format].format(result)
   }
-
-  catch {
+  else {
     throw new Error ('unsupported output format')
   }
 }
