@@ -1,23 +1,21 @@
-function json(diff) {
-  const result = diff.reduce((acc, difference) => {
-    if (Object.hasOwn(difference, 'file1Value') && Object.hasOwn(difference, 'file2Value')) {
-      if (difference.file1Value === difference.file2Value) {
-        acc[difference.key] = 'unchanged'
-        return acc
-      }
-      acc[difference.key] = `changed`
-      return acc
-    }
-    if (Object.hasOwn(difference, 'file1Value')) {
-      acc[difference.key] = `deleted`
-      return acc
-    }
-    if (Object.hasOwn(difference, 'file2Value')) {
-      acc[difference.key] = `added`
-      return acc
-    }
-  }, {})
-  return JSON.stringify(result, null, 2)
+const json = {
+  unchanged: (diff) => {
+    return `  "${diff.key}": "unchanged",`
+  },
+  changed: (diff) => {
+    return `  "${diff.key}": "changed",`
+  },
+  deleted: (diff) => {
+    return `  "${diff.key}": "deleted",`
+  },
+  added: (diff) => {
+    return `  "${diff.key}": "added",`
+  },
+  format: (diff) => {
+    const text = diff.join('\n')
+    const result = text.slice(0, text.length - 1)
+    return `{\n${result}\n}`
+  },
 }
 
 export default json
