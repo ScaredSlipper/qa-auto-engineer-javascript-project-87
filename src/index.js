@@ -7,7 +7,7 @@ const getDiff = (file1, file2) => {
     .sort()
     .reduce((acc, key) => {
       if (Object.hasOwn(file1, key) && Object.hasOwn(file2, key)) {
-        if (file1[key] === file2[key]) {
+        if (_.isEqual(file1[key], file2[key])) {
           acc.push({ key: key, type: 'unchanged', value: file1[key] })
           return acc
         }
