@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const getPath = file => path.join(__dirname, '..', '__fixtures__', file)
+const read = file => fs.readFileSync(getPath(file), 'utf-8')
 
 const json1 = getPath('file1.json')
 const json2 = getPath('file2.json')
@@ -13,10 +14,13 @@ const yaml = getPath('file1.yaml')
 const yml1 = getPath('file1.yml')
 const yml2 = getPath('file2.yml')
 const txt = getPath('file1.txt')
+const valS = getPath('value_string.json')
+const valN = getPath('value_num.json')
 
-const expectedStylish = fs.readFileSync(getPath('stylish.expected'), 'utf-8')
-const expectedPlain = fs.readFileSync(getPath('plain.expected'), 'utf-8')
-const expectedJson = fs.readFileSync(getPath('json.expected'), 'utf-8')
+const expectedStylish = read('stylish.expected')
+const expectedPlain = read('plain.expected')
+const expectedJson = read('json.expected')
+const expectedChange = read('value_change.expected')
 
 test('positive, no format (stylish format)', () => {
   const expected = expectedStylish
@@ -49,4 +53,9 @@ test('unsupported file format', () => {
 
 test('unsupported output format', () => {
   expect(() => genDiff(json1, json2, 'txt')).toThrow('unsupported output format')
+})
+
+test('data type change is visible', () => {
+  const expected = expectedChange
+  expect(genDiff(valS, valN, 'plain')).toEqual(expected)
 })
