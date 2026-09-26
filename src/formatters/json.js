@@ -6,7 +6,7 @@ const json = {
   },
   changed: (diff) => {
     const result = {}
-    result[diff.key] = { 'old value': diff.file1Value, 'status': diff.type , 'new value': diff.file2Value}
+    result[diff.key] = { 'old value': diff.file1Value, 'status': diff.type, 'new value': diff.file2Value }
     return result
   },
   deleted: (diff) => {
