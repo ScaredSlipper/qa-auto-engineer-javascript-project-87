@@ -1,20 +1,32 @@
 const json = {
   unchanged: (diff) => {
-    return `  "${diff.key}": "unchanged",`
+    const result = {}
+    result[diff.key] = { value: diff.value, status: diff.type }
+    return result
   },
   changed: (diff) => {
-    return `  "${diff.key}": "changed",`
+    const result = {}
+    result[diff.key] = { 'old value': diff.file1Value, 'status': diff.type , 'new value': diff.file2Value}
+    return result
   },
   deleted: (diff) => {
-    return `  "${diff.key}": "deleted",`
+    const result = {}
+    result[diff.key] = { value: diff.value, status: diff.type }
+    return result
   },
   added: (diff) => {
-    return `  "${diff.key}": "added",`
+    const result = {}
+    result[diff.key] = { value: diff.value, status: diff.type }
+    return result
   },
   format: (diff) => {
-    const text = diff.join('\n')
-    const result = text.slice(0, text.length - 1)
-    return `{\n${result}\n}`
+    const json = diff.reduce((acc, difference) => {
+      const [[key, value]] = Object.entries(difference)
+      acc[key] = value
+      return acc
+    }, {})
+    const result = JSON.stringify(json, null, 2)
+    return result
   },
 }
 
