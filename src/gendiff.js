@@ -1,4 +1,4 @@
-import getDiff from './index.js'
+import _ from 'lodash'
 import fs from 'node:fs'
 import { extname } from 'node:path'
 import parsers from './parsers.js'
@@ -21,6 +21,32 @@ const read = (filePath) => {
     throw new Error('file not found or unable to read file')
   }
   throw new Error('unsupported file format')
+}
+
+const getDiff = (file1, file2) => {
+  const file1Keys = Object.keys(file1)
+  const file2Keys = Object.keys(file2)
+  const diff = _.union(file1Keys, file2Keys)
+    .sort()
+    .reduce((acc, key) => {
+      if (Object.hasOwn(file1, key) && Object.hasOwn(file2, key)) {
+        if (_.isEqual(file1[key], file2[key])) {
+          acc.push({ key, type: 'unchanged', value: file1[key] })
+          return acc
+        }
+        acc.push({ key, type: 'changed', file1Value: file1[key], file2Value: file2[key] })
+        return acc
+      }
+      if (Object.hasOwn(file1, key)) {
+        acc.push({ key, type: 'deleted', value: file1[key] })
+        return acc
+      }
+      else {
+        acc.push({ key, type: 'added', value: file2[key] })
+        return acc
+      }
+    }, [])
+  return diff
 }
 
 const genDiff = (filePath1, filePath2, format = 'stylish') => {

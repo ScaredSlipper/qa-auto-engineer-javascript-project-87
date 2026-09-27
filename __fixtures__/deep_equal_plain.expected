@@ -1,0 +1,9 @@
+Property 'array' was added with value: [1, 2]
+Property 'host1' was updated. From {
+ "name": "hexlet.io",
+ "proxy": "123.234.53.22"
+} to {
+ "name": "NOThexlet.io",
+ "proxy": "123.234.53.22"
+}
+Property 'null' was added with value: null

@@ -16,11 +16,15 @@ const yml2 = getPath('file2.yml')
 const txt = getPath('file1.txt')
 const valS = getPath('value_string.json')
 const valN = getPath('value_num.json')
+const deepEqual = getPath('deep_equal.json')
+const deepUnequal = getPath('deep_unequal.json')
 
 const expectedStylish = read('stylish.expected')
 const expectedPlain = read('plain.expected')
 const expectedJson = read('json.expected')
 const expectedChange = read('value_change.expected')
+const expectedDeep = read('deep_equal.expected')
+const expectedDeepPlain = read('deep_equal_plain.expected')
 
 test('positive, no format (stylish format)', () => {
   const expected = expectedStylish
@@ -31,10 +35,10 @@ test('positive, no format (stylish format)', () => {
   expect(genDiff(yml1, json2)).toBe(expected)
 })
 
-test('positive, plain format, relative path', () => {
+test('positive, plain format', () => {
   const expected = expectedPlain
 
-  expect(genDiff(json1, '__fixtures__/file2.json', 'plain')).toBe(expected)
+  expect(genDiff(json1, json2, 'plain')).toBe(expected)
 })
 
 test('positive, json format', () => {
@@ -58,4 +62,9 @@ test('unsupported output format', () => {
 test('data type change is visible', () => {
   const expected = expectedChange
   expect(genDiff(valS, valN, 'plain')).toEqual(expected)
+})
+
+test('deep equality', () => {
+  expect(genDiff(deepEqual, deepUnequal)).toEqual(expectedDeep)
+  expect(genDiff(deepEqual, deepUnequal, 'plain')).toEqual(expectedDeepPlain)
 })

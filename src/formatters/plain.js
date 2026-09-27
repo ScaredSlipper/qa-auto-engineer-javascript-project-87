@@ -2,7 +2,28 @@ const insert = (value) => {
   if (typeof value === 'string') {
     return `'${value}'`
   }
-  return value
+  if (typeof value === 'number') {
+    return `${value}`
+  }
+  if (typeof value === 'boolean') {
+    return `${value}`
+  }
+  if (value === null) {
+    return value
+  }
+  if (typeof value === 'object' && Array.isArray(value) === false) {
+    const json = JSON.stringify(value, null, 1)
+    const rows = json.split('\n')
+    rows[0] = '{'
+    rows[3] = '}'
+    const string = rows.join('\n')
+    return string
+  }
+  const result = value.reduce((acc, arr) => {
+    acc += arr + ', '
+    return acc
+  }, '')
+  return `[${result.slice(0, result.length - 2)}]`
 }
 
 const plain = {
