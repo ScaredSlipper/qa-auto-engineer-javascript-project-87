@@ -1,15 +1,17 @@
+import chalk from 'chalk'
+
 const insert = (value) => {
   if (typeof value === 'string') {
-    return `'${value}'`
+    return `'${chalk.blueBright(value)}'`
   }
   if (typeof value === 'number') {
-    return `${value}`
+    return `${chalk.cyanBright(value)}`
   }
   if (typeof value === 'boolean') {
-    return `${value}`
+    return `${chalk.rgb(255, 255, 0)(value)}`
   }
   if (value === null) {
-    return value
+    return `${chalk.rgb(255, 255, 0)(value)}`
   }
   if (typeof value === 'object' && Array.isArray(value) === false) {
     const json = JSON.stringify(value, null, 1)
@@ -17,13 +19,13 @@ const insert = (value) => {
     rows[0] = '{'
     rows[3] = '}'
     const string = rows.join('\n')
-    return string
+    return `${chalk.rgb(255, 165, 0)(string)}`
   }
   const result = value.reduce((acc, arr) => {
     acc += arr + ', '
     return acc
   }, '')
-  return `[${result.slice(0, result.length - 2)}]`
+  return `${chalk.rgb(255, 100, 0)(`[${result.slice(0, result.length - 2)}]`)}`
 }
 
 const plain = {
@@ -31,13 +33,13 @@ const plain = {
     return undefined
   },
   changed: (diff) => {
-    return `Property '${diff.key}' was updated. From ${insert(diff.file1Value)} to ${insert(diff.file2Value)}`
+    return `Property '${(diff.key)}' was updated. ${chalk.red('From')} ${insert(diff.file1Value)} ${chalk.greenBright('to')} ${insert(diff.file2Value)}`
   },
   deleted: (diff) => {
-    return `Property '${diff.key}' was removed`
+    return `Property '${(diff.key)}' was ${chalk.red('removed')}`
   },
   added: (diff) => {
-    return `Property '${diff.key}' was added with value: ${insert(diff.value)}`
+    return `Property '${(diff.key)}' was ${chalk.greenBright('added')} with value: ${insert(diff.value)}`
   },
   format: (diff) => {
     const result = diff.filter(text => text !== undefined).join('\n')
