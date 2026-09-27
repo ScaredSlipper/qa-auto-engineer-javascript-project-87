@@ -1,10 +1,12 @@
 import _ from 'lodash'
 import fs from 'node:fs'
-import { extname } from 'node:path'
+import { extname, resolve } from 'node:path'
 import parsers from './parsers.js'
 import formatters from './formatters/index.js'
 
-const readFile = filePath => fs.readFileSync(filePath, 'utf-8')
+const getAbsolutePath = filepath => resolve(process.cwd(), filepath)
+
+const readFile = filePath => fs.readFileSync(getAbsolutePath(filePath), 'utf-8')
 
 const getExt = filePath => extname(filePath).toLowerCase()
 

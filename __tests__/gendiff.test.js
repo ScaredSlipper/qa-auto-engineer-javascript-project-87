@@ -2,6 +2,7 @@ import genDiff from '../src/gendiff.js'
 import fs from 'node:fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { jest } from '@jest/globals'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -62,6 +63,17 @@ test('unsupported output format', () => {
 test('data type change is visible', () => {
   const expected = expectedChange
   expect(genDiff(valS, valN, 'plain')).toEqual(expected)
+})
+
+test('relative path transforms to absolute', () => {
+  const spy = jest.spyOn(fs, 'readFileSync')
+  const mockCwd = path.join(__dirname, '..')
+  const relativePath = './__fixtures__/file1.json'
+  const expectedPath = path.resolve(mockCwd, relativePath)
+
+  genDiff(relativePath, json2)
+
+  expect(spy).toHaveBeenCalledWith(expectedPath, 'utf-8')
 })
 
 test('deep equality', () => {
