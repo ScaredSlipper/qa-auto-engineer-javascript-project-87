@@ -15,7 +15,7 @@ jobs:
         run: make lint
     
       - name: run jest
-        run: make test-c
+        run: npm test -- --coverage
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
